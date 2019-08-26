@@ -1,11 +1,10 @@
 ﻿using System;
 using Foundation;
-using MvvmCross.iOS.Views;
 using CoreGraphics;
 using UIKit;
 using MvvmCross.Binding.BindingContext;
 using ObjCRuntime;
-
+using MvvmCross.Platforms.Ios.Views;
 
 namespace MvvmCrossNavigationDemo.iOS.Views
 {

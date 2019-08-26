@@ -1,33 +1,22 @@
-using MvvmCross.Core.ViewModels;
-using MvvmCross.iOS.Platform;
-using UIKit;
-using MvvmCross.iOS.Views.Presenters;
+using MvvmCross.Platforms.Ios.Core;
+using MvvmCross.Platforms.Ios.Presenters;
+using MvvmCross.ViewModels;
+using MvvmCrossNavigationDemo.Core;
 using Xamarin.Forms;
-using MvvmCross.Platform.Platform;
 
 namespace MvvmCrossNavigationDemo.iOS
 {
-	public class Setup : MvxIosSetup
-	{
-		public Setup(MvxApplicationDelegate applicationDelegate, UIWindow window)
-            : base(applicationDelegate, window)
-		{
-		}
-
-		protected override IMvxApplication CreateApp()
-		{
-			return new Core.App();
-		}
-		
-        protected override IMvxTrace CreateDebugTrace()
+    public class Setup : MvxIosSetup<App>
+    {
+        protected override IMvxApplication CreateApp()
         {
-            return new DebugTrace();
+            return new Core.App();
         }
 
-		protected override IMvxIosViewPresenter CreatePresenter ()
-		{
-			Forms.Init ();
-			return new MvxFormsTouchPagePresenter (ApplicationDelegate ,Window);
-		}
-	}
+        protected override IMvxIosViewPresenter CreateViewPresenter()
+        {
+            Forms.Init();
+            return new MvxFormsTouchPagePresenter(ApplicationDelegate, Window);
+        }
+    }
 }

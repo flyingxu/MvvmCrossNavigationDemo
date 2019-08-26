@@ -1,10 +1,11 @@
 ﻿using System;
-using MvvmCross.Core.ViewModels;
+using MvvmCross.ViewModels;
 using Xamarin.Forms;
 using System.Reflection;
 using System.Linq;
-using MvvmCross.Platform;
-using MvvmCross.Platform.IoC;
+using MvvmCross;
+using MvvmCross.IoC;
+using MvvmCross.Logging;
 
 namespace MvvmCrossNavigationDemo.Core
 {
@@ -15,7 +16,7 @@ namespace MvvmCrossNavigationDemo.Core
         /// </summary>
         public static IMvxViewModel LoadViewModel (MvxViewModelRequest request)
         {
-            var viewModelLoader = Mvx.Resolve<IMvxViewModelLoader> ();
+            var viewModelLoader = Mvx.IoCProvider.Resolve<IMvxViewModelLoader> ();
             var viewModel = viewModelLoader.LoadViewModel (request, null);
             return viewModel;
         }
@@ -25,18 +26,20 @@ namespace MvvmCrossNavigationDemo.Core
         /// </summary>
         public static Page CreatePage (MvxViewModelRequest request)
         {
+            var logger = Mvx.IoCProvider.Resolve<IMvxLog>();
+
             var viewModelName = request.ViewModelType.Name;
             var pageName = viewModelName.Replace ("XFViewModel", "Page");
             var pageType = request.ViewModelType.GetTypeInfo ().Assembly.CreatableTypes ()
 				.FirstOrDefault (t => t.Name == pageName);
             if (pageType == null) {
-                Mvx.Trace ("Page not found for {0}", pageName);
+                logger.Trace ("Page not found for {0}", pageName);
                 return null;
             }
 
             var page = Activator.CreateInstance (pageType) as Page;
             if (page == null) {
-                Mvx.Error ("Failed to create ContentPage {0}", pageName);
+                logger.Error ("Failed to create ContentPage {0}", pageName);
             }
             return page;
         }

@@ -1,6 +1,6 @@
 using Android.App;
 using Android.Content.PM;
-using MvvmCross.Droid.Views;
+using MvvmCross.Platforms.Android.Views;
 using Xamarin.Forms;
 
 namespace MvvmCrossNavigationDemo.Droid
