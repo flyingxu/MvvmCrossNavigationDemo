@@ -1,13 +1,19 @@
 ﻿using System;
-using MvvmCross.Core.ViewModels;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
+using MvvmCross.Presenters.Hints;
+using MvvmCross.ViewModels;
 
 namespace MvvmCrossNavigationDemo.Core.ViewModels
 {
 	public class FirstNativeViewModel: MvxViewModel
 	{
-		public FirstNativeViewModel ()
+        private readonly IMvxNavigationService _navigationService;
+
+        public FirstNativeViewModel (IMvxNavigationService navigationService)
 		{
-		}
+            _navigationService = navigationService;
+        }
 
 		public string PageContent { 
 			get {
@@ -19,7 +25,7 @@ namespace MvvmCrossNavigationDemo.Core.ViewModels
             get {
 
                 return new MvxCommand (() => {
-                    ChangePresentation(new MvxClosePresentationHint(this));
+                    _navigationService.ChangePresentation(new MvxClosePresentationHint(this));
                 });
             }
         } 
@@ -27,8 +33,8 @@ namespace MvvmCrossNavigationDemo.Core.ViewModels
 		public MvxCommand MoveToNext
 		{
 			get {
-				return new MvxCommand (()=>{					
-                    ShowViewModel<SecondXFViewModel>();
+				return new MvxCommand (()=>{
+                    _navigationService.Navigate<SecondXFViewModel>();
 				});
 			}
 		}

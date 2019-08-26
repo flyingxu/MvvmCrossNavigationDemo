@@ -6,6 +6,7 @@
 [Bb]in/
 packages/
 TestResults/
+xs/
 
 # globs
 Makefile.in
@@ -27,6 +28,7 @@ autom4te.cache/
 tarballs/
 test-results/
 Thumbs.db
+*.designer.cs
 
 #Mac bundle stuff
 *.dmg

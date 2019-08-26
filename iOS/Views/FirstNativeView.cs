@@ -1,14 +1,13 @@
-﻿using System;
+﻿using CoreGraphics;
 using Foundation;
-using MvvmCross.iOS.Views;
-using CoreGraphics;
-using UIKit;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Platforms.Ios.Views;
 using ObjCRuntime;
+using UIKit;
 
 namespace MvvmCrossNavigationDemo.iOS.Views
 {
-	[Register("FirstNativeView")]
+    [Register("FirstNativeView")]
 	public class FirstNativeView : MvxViewController
 	{
 		public override void ViewDidLoad()

@@ -1,15 +1,21 @@
 ﻿using System;
-using MvvmCross.Core.ViewModels;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
+using MvvmCross.Presenters.Hints;
+using MvvmCross.ViewModels;
 
 namespace MvvmCrossNavigationDemo.Core.ViewModels
 {
 	public class SecondXFViewModel : MvxViewModel
 	{
-		public SecondXFViewModel ()
-		{
-		}
+        private readonly IMvxNavigationService _navigationService;
 
-		public string PageContent { 
+        public SecondXFViewModel(IMvxNavigationService navigationService)
+        {
+            _navigationService = navigationService;
+        }
+
+        public string PageContent { 
 			get {
 				return "This is a Xamarin Forms Page, 2 of 3";
 			}
@@ -19,7 +25,7 @@ namespace MvvmCrossNavigationDemo.Core.ViewModels
 		{
 			get {
 				return new MvxCommand (()=>{
-					this.ShowViewModel<ThirdNativeViewModel>();
+                    _navigationService.Navigate<ThirdNativeViewModel>();
 				});
 			}
 		}
@@ -28,7 +34,7 @@ namespace MvvmCrossNavigationDemo.Core.ViewModels
 		{
 			get {
 				return new MvxCommand (()=>{
-					ChangePresentation(new MvxClosePresentationHint(this));
+                    _navigationService.ChangePresentation(new MvxClosePresentationHint(this));
 				});
 			}
 		}
